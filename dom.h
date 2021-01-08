@@ -1,20 +1,19 @@
 #ifndef _DOM_H_
 #define _DOM_H_
 #include <string>
-#include <map>
+#include <unordered_map>
 #include <vector>
 
-namespace berners{
+namespace berners {
 
-    typedef std::map<std::string,std::string> AttrMap;
+    typedef std::unordered_map<std::string,std::string> AttrMap;
 
-    enum NodeType{
+    enum NodeType {
         Text,
         Element
     };
 
-    class ElementData
-    {
+    class ElementData {
         private:
             
         public:
@@ -26,8 +25,7 @@ namespace berners{
             ~ElementData();
     };
 
-    class Node
-    {
+    class Node {
         private:
 
         public:
@@ -41,8 +39,7 @@ namespace berners{
             ~Node();
     };
 
-    class Dom
-    {
+    class Dom {
         private:
             
         public:

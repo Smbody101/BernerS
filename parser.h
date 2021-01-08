@@ -5,9 +5,8 @@
 #include <functional>
 #include "dom.h"
 
-namespace berners{
-    class Parser
-    {
+namespace berners {
+    class Parser {
         private:
             unsigned int pos;
             std::string input;
