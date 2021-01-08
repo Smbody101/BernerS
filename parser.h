@@ -4,6 +4,7 @@
 #include <string>
 #include <functional>
 #include "dom.h"
+#include "css.h"
 
 namespace berners {
     class Parser {
@@ -28,7 +29,16 @@ namespace berners {
             std::vector<berners::Node> parse_nodes();
             static berners::Node parse(const std::string& source);
             ~Parser();
-    };    
+    };
+
+    class CssParser : public Parser {
+    public:
+        CssParser(const std::string& s);
+        std::string parse_identifier();
+        berners::SimpleSelector parse_simple_selector();
+        ~CssParser();
+        
+    };
 };
 
 #endif

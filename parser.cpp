@@ -146,7 +146,7 @@ std::vector<berners::Node> berners::Parser::parse_nodes() {
 }
 
 berners::Node berners::Parser::parse(const std::string& source) {
-    std::vector<berners::Node> nodes = Parser(source).parse_nodes();
+    std::vector<berners::Node> nodes = berners::Parser(source).parse_nodes();
 
     if(nodes.size() == 1)
         return nodes[0];
@@ -157,5 +157,41 @@ berners::Node berners::Parser::parse(const std::string& source) {
 }
 
 berners::Parser::~Parser() {
+
+}
+
+berners::CssParser::CssParser(const std::string& s) : Parser(s) {
+
+}
+
+std::string berners::CssParser::parse_identifier() {
+    return this->consume_while([](char c)->bool {
+        return (c >= 'a' && c <= 'z') || (c >= 'A' && c <= 'Z') || (c >= '0' && c <= '9') || c == '-' || c == '_';
+    });
+}
+
+berners::SimpleSelector berners::CssParser::parse_simple_selector() {
+    berners::SimpleSelector selector = berners::SimpleSelector("", "", std::vector<std::string>());
+    while(!this->eof()) {
+        switch(this->next_char()) {
+            case '#': {
+                this->consume_char();
+                selector.id = this->parse_identifier();
+            } break;
+            case '.': {
+                this->consume_char();
+                selector.class.push_back(this->parse_identifier());
+            } break;
+            case '*': {
+                this->consume_char();
+            } break;
+            default : {
+                selector.tag_name = this->parse_identifier();
+            }
+        }
+    }
+}
+
+berners::CssParser::~CssParser() {
 
 }
