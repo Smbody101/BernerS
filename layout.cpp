@@ -112,9 +112,9 @@ void berners::LayoutBox::calculate_block_position(berners::Dimensions& containin
 }
 
 void berners::LayoutBox::layout_block_children(){
-    for(int i = 0; i < (int)this->children.size(); i++){
-        this->children[i].layout(this->dimensions);
-        this->dimensions.content.height += this->children[i].dimensions.margin_box().height;
+    for(berners::LayoutBox& child : this->children){
+        child.layout(this->dimensions);
+        this->dimensions.content.height += child.dimensions.margin_box().height;
     }
 }
 
